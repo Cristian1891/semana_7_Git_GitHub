@@ -1,36 +1,49 @@
+"""Versión para publicar una rama y abrir un Pull Request."""
+
 PUBLICACIONES = [
     {"titulo": "Primer post", "contenido": "Bienvenidos al blog."},
     {"titulo": "Segundo post", "contenido": "Seguimos practicando Python."},
+    {"titulo": "Git y Python", "contenido": "Un cambio pequeño puede ser un commit."},
 ]
 
 
-def listar_publicaciones() -> None:
-    """Muestra todas las publicaciones con una numeración legible."""
-
-    if not PUBLICACIONES:
-        print("No hay publicaciones.")
+def listar_publicaciones(publicaciones: list[dict[str, str]] | None = None) -> None:
+    elementos = PUBLICACIONES if publicaciones is None else publicaciones
+    if not elementos:
+        print("No hay publicaciones para mostrar.")
         return
 
-    for numero, publicacion in enumerate(PUBLICACIONES, start=1):
+    for numero, publicacion in enumerate(elementos, start=1):
         print(f"{numero}. {publicacion['titulo']}")
         print(f"   {publicacion['contenido']}")
 
 
 def mostrar_resumen() -> None:
-    """Informa cuántas publicaciones existen actualmente."""
-
     cantidad = len(PUBLICACIONES)
     texto = "publicación" if cantidad == 1 else "publicaciones"
     print(f"Total: {cantidad} {texto}.")
 
 
-def mostrar_menu() -> None:
-    """Permite listar publicaciones o consultar el resumen."""
+def buscar_publicaciones(termino: str) -> list[dict[str, str]]:
+    """Devuelve publicaciones cuyo título contiene el término indicado."""
 
+    termino_normalizado = termino.strip().lower()
+    if not termino_normalizado:
+        return []
+
+    return [
+        publicacion
+        for publicacion in PUBLICACIONES
+        if termino_normalizado in publicacion["titulo"].lower()
+    ]
+
+
+def mostrar_menu() -> None:
     while True:
         print("\n=== Mi blog ===")
         print("1. Listar publicaciones")
         print("2. Mostrar resumen")
+        print("3. Buscar por título")
         print("0. Salir")
         opcion = input("Elegí una opción: ").strip()
 
@@ -38,16 +51,19 @@ def mostrar_menu() -> None:
             listar_publicaciones()
         elif opcion == "2":
             mostrar_resumen()
+        elif opcion == "3":
+            termino = input("Ingresá parte del título: ")
+            listar_publicaciones(buscar_publicaciones(termino))
         elif opcion == "0":
             print("Hasta luego.")
             break
         else:
-            print("Opción inválida. Elegí 0, 1 o 2.")
+            print("Opción inválida. Elegí 0, 1, 2 o 3.")
 
 
 if __name__ == "__main__":
-    print("Probando gitignore")
     mostrar_menu()
+
 
 
 
@@ -116,3 +132,17 @@ if __name__ == "__main__":
 #
 #
 # feat(auth): agregar archivo blog.py
+
+# git branch nombre-rama
+#
+#
+# Moverte a una rama existente
+# git checkout nombre-rama
+#
+#
+# Crear y moverte a una rama en un solo paso (lo más común)
+# git checkout -b nombre-rama
+#
+#
+#
+# git switch -c nombre-rama
