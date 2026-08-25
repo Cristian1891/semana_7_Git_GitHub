@@ -24,10 +24,31 @@ def mostrar_resumen() -> None:
     print(f"Total: {cantidad} {texto}.")
 
 
+def mostrar_menu() -> None:
+    """Permite listar publicaciones o consultar el resumen."""
+
+    while True:
+        print("\n=== Mi blog ===")
+        print("1. Listar publicaciones")
+        print("2. Mostrar resumen")
+        print("0. Salir")
+        opcion = input("Elegí una opción: ").strip()
+
+        if opcion == "1":
+            listar_publicaciones()
+        elif opcion == "2":
+            mostrar_resumen()
+        elif opcion == "0":
+            print("Hasta luego.")
+            break
+        else:
+            print("Opción inválida. Elegí 0, 1 o 2.")
+
+
 if __name__ == "__main__":
-    print("Mi blog por consola")
-    listar_publicaciones()
-    mostrar_resumen()
+    mostrar_menu()
+
+
 
 
 # __name__:
