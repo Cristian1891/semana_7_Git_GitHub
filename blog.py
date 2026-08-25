@@ -46,6 +46,7 @@ def mostrar_menu() -> None:
 
 
 if __name__ == "__main__":
+    print("Probando gitignore")
     mostrar_menu()
 
 

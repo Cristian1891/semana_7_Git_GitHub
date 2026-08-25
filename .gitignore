@@ -1,0 +1,6 @@
+# Archivos compilados de Python
+__pycache__/
+
+# Archivos del editor
+.vscode/
+.idea/
